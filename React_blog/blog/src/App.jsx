@@ -33,6 +33,12 @@ function App() {
                 setLike(copy)
                 }}>👍</span>{like[i]}
               </h4>
+              <p>2월 17일 발행</p>
+              <button onClick={()=>{
+                let copy = [...set];
+                copy.splice(i, 1);
+                setList(copy);
+              }}>✔</button>
             </div>
           )
         })
@@ -40,8 +46,12 @@ function App() {
       {/* e: input에서 발생하는 이벤트에 관련한 여러 기능 */}
       {/* e.target: 이벤트 발생한 html태그(input) */}
       {/* e.target.value: input태그에 발생한 입력한 값 */}
-      <input onChange={(e)=>{ setInput(e.target.value); console.log(input); }}/>
-      
+      <input onChange={(e)=>{ setInput(e.target.value) }}/>
+      <button onClick={()=>{
+        let copy = [...set];
+        copy.unshift(input)
+        setList(copy) 
+      }}>글 쓰기</button>
 
       { 
         modal == true ? <Modal title={title} set = {set}/> : null
