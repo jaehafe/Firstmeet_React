@@ -9,25 +9,40 @@ function App() {
   // likeSet -> state변경용 함수
   let [like, setLike] = useState([0, 1, 2]);
   let [modal, setModal] = useState(false);
-  let [title, setTitle] = useState(0);
-  let [input, setInput] = useState('');
 
-  // [1, 2, 3].map(function(a){
-  //   return '123123123'
-  // })
+  [1, 2, 3].map(function(a){
+    return '123123123'
+  })
 
   return (
     <div className="App">
       <div className='black-nav'>
         <h4>ReactBlog</h4>
       </div>
+
+      <button onClick={() => {
+        let copy = [...set];
+        copy.sort((a, b) => a.toLowerCase() < b.toLowerCase()? -1 : 1);
+        setList(copy);
+      }}>가나다순 정렬</button>
+
+      <button onClick={()=>{
+        let copy = [...set]; 
+        copy[0] = '여자 코트 추천';
+        setList(copy);
+        }}> 수정 </button>
+
+
+        {/* map()함수: 1. 왼쪽array자료만큼 내부코드 실행  
+        2. return 오른쪽에 있는걸 array에 담아줌
+        3. 파라미터 2개 사용 가능*/}
+        {/* i: 반복문 돌 때마다 0부터 1씩 증가하는 정수 */}
       { 
         set.map(function(a, i){
           return (
             <div className='list' key={i}>
-              <h4 onClick={()=>{setModal(!modal); setTitle(i) }}>
-                {/* e.stopPropagation 이벤트버블링 x */}
-                { set[i] } <span onClick={(e)=>{ e.stopPropagation();
+              <h4>
+                { set[i] } <span onClick={()=>{
                 let copy = [...like];
                 copy[i] = copy[i] + 1;
                 setLike(copy)
@@ -37,31 +52,22 @@ function App() {
           )
         })
       }
-      {/* e: input에서 발생하는 이벤트에 관련한 여러 기능 */}
-      {/* e.target: 이벤트 발생한 html태그(input) */}
-      {/* e.target.value: input태그에 발생한 입력한 값 */}
-      <input onChange={(e)=>{ setInput(e.target.value); console.log(input); }}/>
-      
 
       { 
-        modal == true ? <Modal title={title} set = {set}/> : null
+        modal == true ? <Modal/> : null
       }
 
     </div>
   );
 }
 
-// 부모 -> 자식 state전송하려면 props문법 사용
-// 1. <자식 컴포넌트 작명={state이름}>
-// 2. props 파라미터 등록 후 props.작명 사용
 // 컴포넌트
-function Modal(props) {
+function Modal() {
   return (
     <div className='modal'>
-      <h4>{ props.set[props.title] }</h4>
+      <h4>제목</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button>글 수정</button>
     </div>
   )
 }

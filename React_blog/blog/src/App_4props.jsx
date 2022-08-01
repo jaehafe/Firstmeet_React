@@ -10,11 +10,10 @@ function App() {
   let [like, setLike] = useState([0, 1, 2]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
-  let [input, setInput] = useState('');
 
-  // [1, 2, 3].map(function(a){
-  //   return '123123123'
-  // })
+  [1, 2, 3].map(function(a){
+    return '123123123'
+  })
 
   return (
     <div className="App">
@@ -26,8 +25,7 @@ function App() {
           return (
             <div className='list' key={i}>
               <h4 onClick={()=>{setModal(!modal); setTitle(i) }}>
-                {/* e.stopPropagation 이벤트버블링 x */}
-                { set[i] } <span onClick={(e)=>{ e.stopPropagation();
+                { set[i] } <span onClick={()=>{
                 let copy = [...like];
                 copy[i] = copy[i] + 1;
                 setLike(copy)
@@ -37,11 +35,10 @@ function App() {
           )
         })
       }
-      {/* e: input에서 발생하는 이벤트에 관련한 여러 기능 */}
-      {/* e.target: 이벤트 발생한 html태그(input) */}
-      {/* e.target.value: input태그에 발생한 입력한 값 */}
-      <input onChange={(e)=>{ setInput(e.target.value); console.log(input); }}/>
-      
+
+      <button onClick={()=>{setTitle(0)}}>글제목0</button>
+      <button onClick={()=>{setTitle(1)}}>글제목1</button>
+      <button onClick={()=>{setTitle(2)}}>글제목2</button>
 
       { 
         modal == true ? <Modal title={title} set = {set}/> : null
